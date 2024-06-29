@@ -3,12 +3,12 @@ import streamlit as st
 # color azul #1E70B0
 st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnBOmUiakBIg2CYUmTrvYS5FHB1bArsBWLjA&s')
 # Carga de datos
-peliculas = pd.read_csv("prueba2.csv")
+peliculas = pd.read_csv("data_peliculas.csv")
 
 st.title(":blue[Selector de películas de AP!]")
 st.title("Seleccioná diez películas que hayas visto y calificalas según cuánto te gustaron:")
 
-peliculas_vistas = st.multiselect(":blue[Películas vistas:]", list(peliculas['Película']))
+peliculas_vistas = st.multiselect(":blue[Películas vistas:]", list(peliculas['title']))
 nombre_pelis_lista = peliculas_vistas
 
 calificacion_peli_lista = []
@@ -25,7 +25,7 @@ if st.button(":blue[Enviar]"):
         datosUsuario = pd.DataFrame(0, index=nombre_pelis_lista, columns=peliculas.columns[1:])
         
         for i, movie in enumerate(nombre_pelis_lista):
-            generos = peliculas[peliculas["Película"] == movie].iloc[0, 1:]
+            generos = peliculas[peliculas["title"] == movie].iloc[0, 1:]
             for genero in generos.index:
                 if generos[genero] == 1:
                     datosUsuario.loc[movie, genero] = calificacion_peli_lista[i]
@@ -44,7 +44,7 @@ if st.button(":blue[Enviar]"):
         peliculas["Puntaje Total"] = peliculas.iloc[:, 1:].sum(axis=1)
 
         # Devolver los títulos de las tres películas con mayor puntaje
-        top_3_movies = peliculas.sort_values(by="Puntaje Total", ascending=False)["Película"][:3]
+        top_3_movies = peliculas.sort_values(by="Puntaje Total", ascending=False)["title"][:3]
         
         st.title(":blue[De acuerdo a tus puntuaciones, AP te recomienda:]")
         for movie in top_3_movies:
