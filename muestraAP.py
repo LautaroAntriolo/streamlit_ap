@@ -1,7 +1,6 @@
 import pandas as pd
 import streamlit as st
 # color azul #1E70B0
-st.image('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnBOmUiakBIg2CYUmTrvYS5FHB1bArsBWLjA&s')
 # Carga de datos
 peliculas = pd.read_csv("data_peliculas.csv")
 
